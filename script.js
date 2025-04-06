@@ -1,4 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Menu Toggle
+    const menuBtn = document.querySelector('.menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    let isMenuOpen = false;
+
+    if (menuBtn && navMenu) {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            menuBtn.querySelector('i').className = isMenuOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !navMenu.contains(e.target) && isMenuOpen) {
+                isMenuOpen = false;
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                menuBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
+        // Close menu when clicking nav links
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                menuBtn.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+    }
+
     // Typing animation
     const roles = [
         'Backend Developer',
@@ -13,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function type() {
         const currentRole = roles[roleIndex];
         const typedText = document.querySelector('.typed-text');
+        
+        if (!typedText) return;
         
         if (isDeleting) {
             typedText.textContent = currentRole.substring(0, charIndex - 1);
@@ -38,50 +75,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     type();
 
-    // Mobile Menu Toggle
-    const menuBtn = document.querySelector('.menu-btn');
-    const navMenu = document.querySelector('.nav-menu');
-    let isMenuOpen = false;
-
-    menuBtn.addEventListener('click', () => {
-        isMenuOpen = !isMenuOpen;
-        menuBtn.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Change menu icon
-        menuBtn.querySelector('i').className = isMenuOpen ? 'fas fa-times' : 'fas fa-bars';
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!menuBtn.contains(e.target) && !navMenu.contains(e.target) && isMenuOpen) {
-            isMenuOpen = false;
-            menuBtn.classList.remove('active');
-            navMenu.classList.remove('active');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-        }
-    });
-
-    // Close menu when clicking nav links
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            isMenuOpen = false;
-            menuBtn.classList.remove('active');
-            navMenu.classList.remove('active');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-        });
-    });
-
     // Active section highlighting
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    window.addEventListener('scroll', () => {
+    function updateActiveSection() {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (scrollY >= sectionTop - 200) {
+            if (window.scrollY >= sectionTop - 200) {
                 current = section.getAttribute('id');
             }
         });
@@ -92,5 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.classList.add('active');
             }
         });
-    });
+    }
+
+    window.addEventListener('scroll', updateActiveSection);
+    updateActiveSection(); // Call once on load
 });
