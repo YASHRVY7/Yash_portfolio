@@ -1908,3 +1908,164 @@ footer .container {
         display: none;
     }
 }
+
+/* CTF Challenges Section */
+.ctf-challenge {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+    align-items: center;
+    margin: 3rem 0;
+    background: rgba(26, 30, 35, 0.6);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid rgba(0, 255, 157, 0.1);
+    transition: all 0.3s ease;
+}
+
+.ctf-challenge:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.challenge-image {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+.challenge-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.challenge-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 157, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.challenge-overlay i {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.ctf-challenge:hover .challenge-image img {
+    transform: scale(1.1);
+}
+
+.ctf-challenge:hover .challenge-overlay {
+    opacity: 1;
+}
+
+.ctf-challenge:hover .challenge-overlay i {
+    transform: translateY(0);
+}
+
+.challenge-content {
+    padding: 1rem;
+}
+
+.challenge-header {
+    margin-bottom: 1.5rem;
+}
+
+.challenge-header h3 {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.challenge-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.challenge-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.challenge-features li {
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.challenge-features li::before {
+    content: '•';
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
+.challenge-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    transition: all 0.3s ease;
+}
+
+.challenge-link:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.challenge-link:hover i {
+    transform: translateX(5px);
+}
+
+/* Responsive Design for CTF Challenges */
+@media (max-width: 992px) {
+    .ctf-challenge {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .challenge-image {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .ctf-challenge {
+        padding: 1rem;
+    }
+
+    .challenge-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .challenge-features li {
+        font-size: 0.9rem;
+    }
+}
