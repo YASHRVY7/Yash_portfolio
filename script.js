@@ -100,3 +100,4 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', updateActiveSection);
     updateActiveSection(); // Call once on load
 });
+
